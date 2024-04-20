@@ -12,5 +12,4 @@
 
 ## ❤️感谢
 - hanwckf：https://github.com/hanwckf/immortalwrt-mt798x  
-- ~~padavanonly：https://github.com/padavanonly/immortalwrtARM  ~~
 - Actions-OpenWrt：https://github.com/P3TERX/Actions-OpenWrt
