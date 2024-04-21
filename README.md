@@ -12,8 +12,8 @@
 ##  How To
 ###  Generate `.config` file for target router
 - Clone this repo
-- Copy the folder `immortalwt/` in gen-config/
-- Modify mount path in ==run.sh== 
+- Copy the folder `immortalwrt/` in `gen-config/`
+- Modify mount path in `run.sh`
 - Run `build.sh` to create the build env image
 - Run `run.sh` to create the container and attach to it
 - Inside container, copy template config file from `deconfig/` folder
@@ -28,9 +28,9 @@ cp -f defconfig/mt7986-ax6000.config .config
 cp -f defconfig/mt7986-ax6000-256m.config .config
 ```
 - Run `make menuconfig` to choose target router and plugins, etc.
-- Move the resulted `.config` file back to `deconfig/`
-- Copy this .config in host machine, rename it accordingly, e.g. `360T7.config`
-- Add it to the root of this repo
+- rename the resulted `.config` file accordingly, e.g. `360T7.config`
+- Move it back to `deconfig/`
+- Copy this renamed `xxxx.config` in mount folder in host machine, and add it to the root of this repo.
 
 ### Add new workflow 
 - Use the existing workflow file as template, and modify accordingly.
