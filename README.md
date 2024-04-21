@@ -34,6 +34,11 @@ cp -f defconfig/mt7986-ax6000-256m.config .config
 
 ### Add new router to workflow 
 - Add name of the new router to matrix.router in `Build-All.yml`
+```yml
+    strategy:
+      matrix:
+        router: [360T7, Mi-AX3000T]
+```
 - Attention: the name here should match the one use in `xxxx.config` file, e.g. "360T7".
 
 ## ❤️感谢
