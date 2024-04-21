@@ -129,7 +129,7 @@ jobs:
          time=$(date +%Y.%m.%d)
          release_tag="${{ matrix.router }}-hanwckf-ImmortalWrt-$time"
          release_name="${{ matrix.router }}-hanwckf-ImmortalWrt-$time"
-         echo "Default gateway：192.168.77.1
+         echo "Default gateway：192.168.77.1 or http://immortalwrt.lan/
          Login username: root
          Login password：no password" >> release.txt
          echo "release_name=$release_name" >> $GITHUB_OUTPUT
