@@ -4,7 +4,7 @@
 
   | Default Gateway    | User     | Password    |
   | -------- | -------- | -------- |
-  | 192.168.77.1 (http://immortalwrt.lan/)| root | -- |
+  | 192.168.77.1 (http://immortalwrt.lan/)| root |  |
 
 ##  How to add a new router
 ###  Generate `.config` file for target router
