@@ -10,7 +10,7 @@
 - Go to Actons
 - Run the workflow
 - It takes about 50 minutes
-- Resulted firmware will be shown on `release`
+- Resulted firmware will be shown on `Releases`
 ##  How to add a new router
 ###  1. Generate `.config` file for target router
 - Clone this repo
