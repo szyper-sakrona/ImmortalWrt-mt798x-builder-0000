@@ -16,7 +16,7 @@
 - Clone this repo
 - Enter folder `gen-config/immortalwrt/`
 - Modify mount path in `run.sh`
-- Run `build.sh` to create the build env image
+- Run `build.sh` to create the build env image (about 3.5GB)
 - Run `run.sh` to create the container and attach to it
 - Inside container, copy template config file from `deconfig/` folder
 ```
