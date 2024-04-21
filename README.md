@@ -7,7 +7,7 @@
   | 192.168.77.1 (http://immortalwrt.lan/)| root |  |
 
 ##  How to add a new router
-###  Generate `.config` file for target router
+###  1. Generate `.config` file for target router
 - Clone this repo
 - Copy the folder `immortalwrt/` in `gen-config/`
 - Modify mount path in `run.sh`
@@ -29,7 +29,7 @@ cp -f defconfig/mt7986-ax6000-256m.config .config
 - Move it back to `deconfig/`
 - Copy this renamed `xxxx.config` in mount folder in host machine, and add it to the root of this repo.
 
-### Add new router to workflow 
+### 2. Add new router to workflow 
 - Add name of the new router to matrix.router in `Build-All.yml`
 ```yml
     strategy:
