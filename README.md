@@ -1,12 +1,12 @@
-# 为 MT798x 云编译 ImmortalWrt
+# Making ImmortalWrt Firmware for MT798x Routers
 
-## 🤖关于固件
+## 🤖Configuration
 
-  | 默认网关    | 默认用户     | 默认密码     |
+  | Default Gateway    | User     | Password    |
   | -------- | -------- | -------- |
   | 192.168.77.1 (http://immortalwrt.lan/)| root | -- |
 
-- 纯净版 无任何非必要插件
+- Clean version, without extra plugins.
 
 ##  How to add a new router
 ###  Generate `.config` file for target router
@@ -40,6 +40,6 @@ cp -f defconfig/mt7986-ax6000-256m.config .config
 ```
 - Attention: the name here should match the one use in `xxxx.config` file, e.g. "360T7".
 
-## ❤️感谢
+## ❤️Thanks to
 - hanwckf：https://github.com/hanwckf/immortalwrt-mt798x  
 - Actions-OpenWrt：https://github.com/P3TERX/Actions-OpenWrt
