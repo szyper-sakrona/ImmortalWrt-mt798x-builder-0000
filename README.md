@@ -7,7 +7,7 @@
   | 192.168.77.1 (http://immortalwrt.lan/)| root |  |
 
 ## How to create a new firmware
-- Go to Actons
+- Go to Actions
 - Run the workflow
 - It takes about 50 minutes
 - Resulted firmware will be shown on `Releases`
