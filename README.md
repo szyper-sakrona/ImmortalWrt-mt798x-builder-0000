@@ -27,7 +27,7 @@ cp -f defconfig/mt7986-ax6000-256m.config .config
 - Run `make menuconfig` to choose target router and plugins, etc.
 - rename the resulted `.config` file accordingly, e.g. `360T7.config`
 - Move it back to `deconfig/`
-- Copy this renamed `xxxx.config` from mount folder in host machine, and add it to the root of this repo.
+- Copy this renamed `xxxx.config` from mount path in host machine, and add it to the root of this repo.
 
 ### 2. Add new router to workflow 
 - Add name of the new router to matrix.router in `Build-All.yml`
