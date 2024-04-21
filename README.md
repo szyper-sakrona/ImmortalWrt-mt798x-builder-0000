@@ -12,7 +12,7 @@
 ##  How To
 ###  Generate `.config` file for target router
 - Clone this repo
-- Copy the folder `immortalwt/` in gen-config/
+- Copy the folder `immortalwrt/` in `gen-config/`
 - Modify mount path in ==run.sh== 
 - Run `build.sh` to create the build env image
 - Run `run.sh` to create the container and attach to it
