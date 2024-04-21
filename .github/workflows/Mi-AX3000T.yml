@@ -1,4 +1,4 @@
-name: Immortal-Mi-AX3000T
+name: ImmortalWrt-Mi-AX3000T
 
 on:
   repository_dispatch:
