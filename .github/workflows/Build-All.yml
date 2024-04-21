@@ -1,4 +1,4 @@
-name: ImmortalWrt-Mi-AX3000T
+name: ImmortalWrt-All
 
 on:
   repository_dispatch:
@@ -12,7 +12,6 @@ env:
   REPO_URL: https://github.com/hanwckf/immortalwrt-mt798x
   REPO_BRANCH: openwrt-21.02
   FEEDS_CONF: feeds.conf.default
-  CONFIG_FILE: mi-ax3000t.config
   DIY_P1_SH: diy-part1.sh
   DIY_P2_SH: diy-part2.sh
   UPLOAD_FIRMWARE: true
@@ -21,15 +20,19 @@ env:
 
 jobs:
   build:
+    matrix:
+        router: [360t7, mi-ax3000t]
     runs-on: ubuntu-22.04
 
     steps:
-    - name: 检查项目分支
+    - name: Checkout
       uses: actions/checkout@main
 
-    - name: 初始化编译环境
+    - name: Initialize environment
       env:
         DEBIAN_FRONTEND: noninteractive
+        CONFIG_FILE: "${{ matrix.router }}.config"
+        ROUTER: ${{ matrix.router }}
       run: |
         sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
         sudo apt update -y
@@ -45,37 +48,37 @@ jobs:
         sudo mkdir -p /workdir
         sudo chown $USER:$GROUPS /workdir
         echo "FIRMWARE_VERSION=$(date +"%y%m%d")" >> $GITHUB_ENV
-        echo "START_DATE=$(date +'%Y年%m月%d日 %H点%M分%S秒')" >> $GITHUB_ENV
+        echo "START_DATE=$(date +'%Y-%m-%d- %H:%M:%S')" >> $GITHUB_ENV
         
-    - name: 下载源码
+    - name: Clone source code
       working-directory: /workdir
       run: |
         df -hT $PWD
         git clone $REPO_URL -b $REPO_BRANCH openwrt
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
         
-    - name: 加载软件源
+    - name: Load custom feeds
       run: |
         [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
         chmod +x $DIY_P1_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P1_SH
         
-    - name: 更新软件源
+    - name: Update feeds
       run: cd openwrt && ./scripts/feeds update -a
 
-    - name: 安装软件源
+    - name: Install feeds
       run: cd openwrt && ./scripts/feeds install -a
 
-    - name: 加载自定义配置
+    - name: Load custom config
       run: |
         [ -e files ] && mv files openwrt/files
-        [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
+        [ -e "${{ matrix.router }}.config" ] && mv "${{ matrix.router }}.config" openwrt/.config
         chmod +x $DIY_P2_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
         
-    - name: 下载包
+    - name: Downlaod packages
       id: package
       run: |
         cd openwrt
@@ -84,19 +87,19 @@ jobs:
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
         
-    - name: 编译固件
+    - name: Compile firmware
       id: compile
       run: |
         cd openwrt
         echo -e "$(nproc) thread compile"
-        make -j$(nproc) || make -j1 || make -j1 V=s || (curl -k -d "title=OpenWrt-mi-ax3000t固件编译失败" -d "content=编译固件版本：${{ env.FIRMWARE_VERSION }}%0A编译开始时间：${{ env.START_DATE }}%0A编译结束时间：$(date +'%Y年%m月%d日 %H点%M分%S秒')" -d "token=${{ env.PUSHPLUS_TOKEN }}&channel=cp&webhook=server" "http://www.pushplus.plus/send")
+        make -j$(nproc) || make -j1 || make -j1 V=s || (curl -k -d "title=OpenWrt-${{ matrix.router }} Firmware Compile Failed" -d "content=Firmware-Version：${{ env.FIRMWARE_VERSION }}%0AStart：${{ env.START_DATE }}%0AFinish：$(date +'%Y-%m-%d %H:%M:%S')" -d "token=${{ env.PUSHPLUS_TOKEN }}&channel=cp&webhook=server" "http://www.pushplus.plus/send")
         echo "status=success" >> $GITHUB_OUTPUT
         
-    - name: 整理固件
+    - name: Organize generated files
       id: organize
       if: steps.compile.outputs.status == 'success' && env.UPLOAD_FIRMWARE == 'true' && !cancelled()
       run: |
-        # 整理固件包时候,删除您不想要的固件或者文件,让它不需要上传到Actions空间
+        # Remove obsolete files and firmware, which not going to upload to Actions sapce
         cd openwrt/bin/targets/*/*
         rm -rf packages
         rm -rf version.buildinfo
@@ -105,33 +108,33 @@ jobs:
         rm -rf *kernel*
         rm -rf *.manifest
         rm -rf sha256sums
-        mv *sysupgrade.bin ${{ env.FIRMWARE_VERSION }}-ImmortalWrt-Mi-AX3000T-108M-sysupgrade.bin
-        mv *factory.bin ${{ env.FIRMWARE_VERSION }}-ImmortalWrt-Mi-AX3000T-108M-factory.bin
+        mv *sysupgrade.bin ${{ env.FIRMWARE_VERSION }}-ImmortalWrt-${{ matrix.router }}-108M-sysupgrade.bin
+        mv *factory.bin ${{ env.FIRMWARE_VERSION }}-ImmortalWrt-${{ matrix.router }}-108M-factory.bin
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "status=success" >> $GITHUB_OUTPUT
         
-    - name: 上传固件到Github Action空间
+    - name: Upload firmware to Github Action
       uses: actions/upload-artifact@main
       if: steps.organize.outputs.status == 'success' && !cancelled()
       with:
-        name: ${{ env.FIRMWARE_VERSION }}-OpenWrt-Mi-AX3000T
+        name: ${{ env.FIRMWARE_VERSION }}-OpenWrt-${{ matrix.router }}
         path: ${{ env.FIRMWARE }}
         
-    - name: 创建release标签
+    - name: Generate release tag
       id: tag
       if: env.UPLOAD_RELEASE == 'true' && !cancelled()
       run: |
          time=$(date +%Y.%m.%d)
-         release_tag="Mi-AX3000T-hanwckf-ImmortalWrt-$time"
-         release_name="Mi-AX3000T-hanwckf-ImmortalWrt-$time"
-         echo "跟进上游变更
-         默认网关：192.168.77.1
-         登录密码：無">> release.txt
+         release_tag="${{ matrix.router }}-hanwckf-ImmortalWrt-$time"
+         release_name="${{ matrix.router }}-hanwckf-ImmortalWrt-$time"
+         echo "
+         Default gateway：192.168.77.1
+         Login Pass：`empty`">> release.txt
          echo "release_name=$release_name" >> $GITHUB_OUTPUT
          echo "release_tag=$release_tag" >> $GITHUB_OUTPUT
          echo "status=success" >> $GITHUB_OUTPUT
         
-    - name: 将固件上传到release
+    - name: Upload firmware to release
       uses: softprops/action-gh-release@master
       if: steps.tag.outputs.status == 'success' && !cancelled()
       env:
@@ -142,13 +145,13 @@ jobs:
          body_path: release.txt
          files: ${{ env.FIRMWARE }}/*
 
-    - name: 删除工作流运行
+    - name: Delete workflow runs
       uses: GitRML/delete-workflow-runs@main
       with:
         retain_days: 1
         keep_minimum_runs: 3
 
-    - name: 删除旧的releases
+    - name: Delete older releases
       uses: dev-drprasad/delete-older-releases@master
       if: env.UPLOAD_RELEASE == 'true' && !cancelled()
       with:
