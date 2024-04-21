@@ -8,7 +8,7 @@
 
 - 纯净版 无任何非必要插件
 
-##  How To
+##  How to add a new router
 ###  Generate `.config` file for target router
 - Clone this repo
 - Copy the folder `immortalwrt/` in `gen-config/`
