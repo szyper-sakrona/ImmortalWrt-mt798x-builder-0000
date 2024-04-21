@@ -1,4 +1,4 @@
-# Making ImmortalWrt Firmware for MT798x Routers
+# Generate ImmortalWrt Firmware for MT798x Routers
 
 ## 🤖Configuration
 
