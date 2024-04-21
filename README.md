@@ -1,5 +1,4 @@
 # 为 MT798x 云编译 ImmortalWrt
-![immortalwrt](logo.png)
 
 ## 🤖关于固件
 
