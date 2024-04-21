@@ -9,7 +9,7 @@
 ##  How to add a new router
 ###  1. Generate `.config` file for target router
 - Clone this repo
-- Copy the folder `immortalwrt/` in `gen-config/`
+- Enter folder `gen-config/immortalwrt/`
 - Modify mount path in `run.sh`
 - Run `build.sh` to create the build env image
 - Run `run.sh` to create the container and attach to it
