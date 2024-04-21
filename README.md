@@ -6,6 +6,11 @@
   | -------- | -------- | -------- |
   | 192.168.77.1 (http://immortalwrt.lan/)| root |  |
 
+## How to create a new firmware
+- Go to Actons
+- Run the workflow
+- It takes about 50 minutes
+- Resulted firmware will be shown on `release`
 ##  How to add a new router
 ###  1. Generate `.config` file for target router
 - Clone this repo
