@@ -32,8 +32,9 @@ cp -f defconfig/mt7986-ax6000-256m.config .config
 - Move it back to `deconfig/`
 - Copy this renamed `xxxx.config` in mount folder in host machine, and add it to the root of this repo.
 
-### Add new workflow 
-- Use the existing workflow file as template, and modify accordingly.
+### Add new router to workflow 
+- Add name of the new router to matrix.router in `Build-All.yml`
+- Attention: the name here should match the one use in `xxxx.config` file, e.g. "360T7".
 
 ## ❤️感谢
 - hanwckf：https://github.com/hanwckf/immortalwrt-mt798x  
