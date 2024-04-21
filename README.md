@@ -6,8 +6,6 @@
   | -------- | -------- | -------- |
   | 192.168.77.1 (http://immortalwrt.lan/)| root | -- |
 
-- Clean version, without extra plugins.
-
 ##  How to add a new router
 ###  Generate `.config` file for target router
 - Clone this repo
