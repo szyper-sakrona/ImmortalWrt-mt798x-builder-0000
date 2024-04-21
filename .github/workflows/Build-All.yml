@@ -20,7 +20,8 @@ env:
 
 jobs:
   build:
-    matrix:
+    strategy:
+      matrix:
         router: [360t7, mi-ax3000t]
     runs-on: ubuntu-22.04
 
