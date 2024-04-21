@@ -39,5 +39,5 @@ cp -f defconfig/mt7986-ax6000-256m.config .config
 - Attention: the name here should match the one use in `xxxx.config` file, e.g. "360T7".
 
 ## ❤️Thanks to
-- hanwckf：https://github.com/hanwckf/immortalwrt-mt798x  
-- Actions-OpenWrt：https://github.com/P3TERX/Actions-OpenWrt
+- hanwckf: https://github.com/hanwckf/immortalwrt-mt798x  
+- P3TERX: https://github.com/P3TERX/Actions-OpenWrt
