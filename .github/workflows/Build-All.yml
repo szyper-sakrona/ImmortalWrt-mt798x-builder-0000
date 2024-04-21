@@ -22,7 +22,7 @@ jobs:
   build:
     strategy:
       matrix:
-        router: [360t7, mi-ax3000t]
+        router: [360T7, Mi-AX3000T]
     runs-on: ubuntu-22.04
 
     steps:
