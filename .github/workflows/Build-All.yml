@@ -23,7 +23,7 @@ jobs:
     strategy:
       max-parallel: 2
       matrix:
-        router: [360T7, Mi-AX3000T]
+        router: [360T7, Mi-AX3000T, Mi-AX3000Tstock]
     runs-on: ubuntu-22.04
 
     steps:
