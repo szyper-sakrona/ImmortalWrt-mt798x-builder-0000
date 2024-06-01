@@ -106,7 +106,6 @@ jobs:
         rm -rf *.manifest
         rm -rf sha256sums
         mv *sysupgrade.bin ${{ env.FIRMWARE_VERSION }}-ImmortalWrt-Mi-AX3000T-108M-sysupgrade.bin
-        mv *factory.bin ${{ env.FIRMWARE_VERSION }}-ImmortalWrt-Mi-AX3000T-108M-factory.bin
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "status=success" >> $GITHUB_OUTPUT
         
